@@ -1,7 +1,7 @@
 ---
 title: "Linear regression: Sonadora temperature and elevation example"
-author: "your name here"
-date: "insert date here"
+author: "Jared Umphress"
+subtitle: "May 15, 2026"
 format:
   html:
     toc: true # use this to display a table of contents
@@ -42,7 +42,7 @@ H~A~: Elevation (m) predicts temperature (°C).
 ```{r}
 #| label: temperature-cleaning
 
-# creating new clean data frame
+# creating sonodora_clean object to store cleaned sonodora data 
 sonadora_clean <- sonadora |> 
   # clean column names
   clean_names() |> 
@@ -60,6 +60,11 @@ sonadora_clean <- sonadora |>
   # make sure elevation is read as a number
   mutate(elevation_m = as.numeric(elevation_m))
 
+```
+
+```{r}
+#| label: summarizing data
+
 # summarizing
 sonadora_sum <- sonadora_clean |> 
   # group by plot and elevation
@@ -70,7 +75,9 @@ sonadora_sum <- sonadora_clean |>
   ungroup() |> 
   # arrange in order of elevation
   arrange(elevation_m)
+
 ```
+
 
 ## c. Exploratory data visualization
 
