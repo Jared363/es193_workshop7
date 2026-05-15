@@ -85,11 +85,22 @@ sonadora_sum <- sonadora_clean |>
 #| label: temperature-visualization
 
 # base layer: ggplot
-ggplot(data = sonadora_sum, 
+ggplot(
+      # using sonodora_summary data
+      data = sonadora_sum, 
+      # x-axis is elevation (meters)
+      # y-axis is mean temperature (Celcius)
        aes(x = elevation_m,
            y = mean_temp_c)) +
   # first layer: points representing temperature at each elevation
-  geom_point()
+  geom_point(
+    color = "springgreen4",
+    shape = 17
+  ) +
+  labs(x = "Elevation (M)",
+       y ="Mean Temperature (C)",
+       title = "Mean Temperature in Relation to Elevation") +
+  theme_classic()
 
 ```
 
@@ -98,13 +109,18 @@ ggplot(data = sonadora_sum,
 ```{r}
 #| label: temperature-model
 
-# model
+# creating temperature_model to store model output
 temperature_model <- lm(
   mean_temp_c ~ elevation_m, # formula: response ~ predictor
-  data = sonadora_sum # data frame
+  data = sonadora_sum # using sonodora_sum data frame
   )
 
+temperature_model
+
 ```
+
+**Intercept**: 24.78
+**Slope**: -0.005545 degrees Celcius/Meter gain of elevation
 
 ### Diagnostics
 
@@ -126,7 +142,7 @@ summary(temperature_model)
 
 ```
 
-**For each meter of elevation gain, you would expect a decrease in temperature equivalent to 0.01 ± 0.0003 (SE) °C.**
+**For each meter of elevation gain, you would expect an approximate decrease in temperature equivalent to 0.01 ± 0.0003 (SE) °C.**
 
 ### Generating predictions
 
@@ -139,14 +155,14 @@ temperature_preds <- ggpredict(
   terms = "elevation_m"   # predictor (in quotation marks)
 )
 
-# calculate the temperature prediction at elevation = 900
+# calculate the temperature prediction at elevation = 420
 ggpredict(
   temperature_model,           # model object
-  terms = "elevation_m[900]"   # predictor (in quotation marks) and predictor value in brackets
+  terms = "elevation_m[420]"   # predictor (in quotation marks) and predictor value in brackets
 )
 ```
 
-**At 900 m, the predicted temperature is 19.8 °C (95% CI: [19.6, 20.0]).**
+**At 420 m, the predicted temperature is 22.45 °C (95% CI: [22.28, 22.62]).**
 
 ### Visualizing model predictions
 
@@ -166,7 +182,8 @@ ggplot(data = sonadora_sum,
                   y = predicted,
                   ymin = conf.low,
                   ymax = conf.high),
-              alpha = 0.2) +
+              alpha = 0.2,
+              fill = "skyblue1") +
   # model prediction line
   # uses model prediction data frame
   geom_line(data = temperature_preds,
