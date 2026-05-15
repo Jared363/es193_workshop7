@@ -27,6 +27,6 @@ There is an abalone-exmaple.qmd which cleans the abalone data and runs a linear 
 
 The rendered .pdf for the abalone linear model is [here](https://github.com/Jared363/es193_workshop7/blob/main/code/abalone-example.pdf)
 
-The rendered .pdf for the sonodora elevation vs temperature linear model is [here]https://github.com/Jared363/es193_workshop7/blob/main/code/sonadora-temperature-example.html
+The rendered .pdf for the sonodora elevation vs temperature linear model is [here](https://github.com/Jared363/es193_workshop7/blob/main/code/sonadora-temperature-example.html)
 
 You can test this by sharing the url with someone else to open on their computer - if it doesn't work, that means your GitHub pages set up didn't work.
